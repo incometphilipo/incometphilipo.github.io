@@ -21,7 +21,7 @@ body {
     line-height: 1.8;
     color: var(--color-text);
     background-color: var(--color-background);
-    /* CHANGED: Increased top padding to clear the larger overlapping logo */
+    /* Increased top padding to clear the larger overlapping logo */
     padding-top: 140px;
 }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -97,9 +97,46 @@ body.scrolled .logo-desktop .logo-img {
     height: 90px;
 }
 
+/* --- DROPDOWN MENU STYLES (FIXED) --- */
 .dropdown { position: relative; }
-.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 220px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); z-index: 1; border-radius: 5px; margin-top: 15px; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
-.dropdown:hover .dropdown-content { display: block; opacity: 1; transform: translateY(0); }
+
+.dropdown-content { 
+    /* Changed from display:none to visibility for smoother animation */
+    display: block; 
+    visibility: hidden;
+    position: absolute; 
+    background-color: #f9f9f9; 
+    min-width: 220px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); 
+    z-index: 1; 
+    border-radius: 5px; 
+    
+    /* The visual gap */
+    margin-top: 15px; 
+    
+    /* Animation settings */
+    opacity: 0; 
+    transform: translateY(10px); 
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; 
+}
+
+/* THE FIX: Invisible bridge to fill the margin-top gap */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -20px; /* Covers the 15px margin plus a little extra for safety */
+    left: 0;
+    width: 100%;
+    height: 20px; 
+    background: transparent; 
+}
+
+.dropdown:hover .dropdown-content { 
+    visibility: visible; 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
 .dropdown-content a { color: var(--color-secondary) !important; padding: 12px 16px; text-decoration: none; display: block; }
 .dropdown-content a:hover { background-color: #f1f1f1; }
 
@@ -125,7 +162,7 @@ body.scrolled .logo-desktop .logo-img {
     .desktop-nav { display: none; }
     .logo-mobile, .menu-toggle { display: block; }
 
-    /* NEW: Add specific body padding for mobile to clear the mobile logo */
+    /* Add specific body padding for mobile to clear the mobile logo */
     body {
         padding-top: 120px;
     }
@@ -168,7 +205,7 @@ body.scrolled .logo-desktop .logo-img {
     color: var(--color-white);
     overflow: hidden;
 
-    background-image: url('assets/hero.jpg'); /* <-- replace here */
+    background-image: url('assets/hero.jpg'); /* Ensure this file exists */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -190,13 +227,15 @@ body.scrolled .logo-desktop .logo-img {
 .hero-content h1 { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; }
 .hero-content p { font-size: 1.25rem; margin-bottom: 2rem; }
 
-/* --- REMAINDER OF CSS --- */
+/* --- GENERAL SECTIONS & COMPONENTS --- */
 .btn { padding: 1rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; border: none; cursor: pointer; font-family: var(--font-heading); }
 .btn-primary { background-color: var(--color-primary); color: var(--color-white); }
 .btn-primary:hover { background-color: #0056b3; transform: translateY(-3px); }
+
 section { padding: 5rem 0; }
 .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-secondary); font-family: var(--font-heading); }
 .section-subtitle { text-align: center; font-size: 1.2rem; margin-bottom: 4rem; color: var(--color-text); max-width: 700px; margin-left: auto; margin-right: auto; }
+
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
 .card { background: var(--color-white); border: 1px solid #eee; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
@@ -204,6 +243,7 @@ section { padding: 5rem 0; }
 .card-content { padding: 1.5rem; }
 .card-content h3 { font-family: var(--font-heading); color: var(--color-secondary); margin-bottom: 0.5rem; }
 .read-more { color: var(--color-primary); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 1rem; }
+
 .admissions-banner { background-color: var(--color-secondary); color: var(--color-white); text-align: center; padding: 3rem 1rem; }
 
 /* --- FOOTER STYLES --- */
@@ -212,7 +252,6 @@ footer { background: var(--color-secondary); color: rgba(255, 255, 255, 0.8); pa
 .footer-grid h4 { font-family: var(--font-heading); color: var(--color-white); margin-bottom: 1rem; }
 .footer-bottom { text-align: center; padding: 1.5rem 0; font-size: 0.9rem; }
 
-/* --- FOOTER LINK STYLES --- */
 .footer-grid a {
     color: var(--color-white);
     text-decoration: none;
@@ -224,6 +263,8 @@ footer { background: var(--color-secondary); color: rgba(255, 255, 255, 0.8); pa
 .footer-grid a:hover {
     color: var(--color-primary);
 }
-/* --- END OF FOOTER STYLES --- */
 
-@media (max-width: 768px) { .hero-content h1 { font-size: 2.5rem; } .section-title { font-size: 2rem; } }
+@media (max-width: 768px) { 
+    .hero-content h1 { font-size: 2.5rem; } 
+    .section-title { font-size: 2rem; } 
+}
